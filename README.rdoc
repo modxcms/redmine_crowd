@@ -1,0 +1,5 @@
+= crowd_authenticator
+
+Atlassian Crowd 1.6 integration for Redmine.  Requires the crowd gem from http://github.com/liff/crowd - or gem install crowd .
+
+May work very properly with Crowd 2.0 using gem install crowd-stefanwille, but is untested in that configuration.
