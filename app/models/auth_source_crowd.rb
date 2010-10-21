@@ -21,7 +21,11 @@ class AuthSourceCrowd < AuthSource
   
   def authenticate(login, password)
     self.test_connection unless app_token
-    crowd_user = Crowd.find_principal_by_username(login)
+    begin
+      crowd_user = Crowd.find_principal_by_username(login)
+    rescue Crowd::AuthenticationObjectNotFoundException => e
+      return false
+    end
     attrs={}
     if crowd_user
       begin
