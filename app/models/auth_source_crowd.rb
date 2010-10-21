@@ -24,7 +24,11 @@ class AuthSourceCrowd < AuthSource
     crowd_user = Crowd.find_principal_by_username(login)
     attrs={}
     if crowd_user
-      usertoken = Crowd.authenticate_principal(login, password)
+      begin
+        usertoken = Crowd.authenticate_principal(login, password)
+      rescue Crowd::AuthenticationObjectNotFoundException => e
+        return false
+      end
       if usertoken
         attrs = load_attrs(crowd_user) if onthefly_register?
       else
